@@ -458,7 +458,8 @@ nnoremap <right> <nop>
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Ack
-map <leader>a :Ack
+"map <leader>a :Ack
+"Thew was a problem here. It was also mapped in plugin/autoclose.vim.
 
 "To get the quick blame for any highlighted lines
 vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
@@ -487,6 +488,4 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-
 
