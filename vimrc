@@ -1,4 +1,8 @@
+"avoiding annoying CSApprox warning message
+let g:CSApprox_verbose_level = 0
+
 "necessary on some Linux distros for pathogen to properly load bundles
+filetype on
 filetype off
 
 "load pathogen managed plugins
@@ -69,7 +73,7 @@ set fo=l
 set statusline=%f       "tail of the filename
 
 "Git
-set statusline+=[%{GitBranch()}]
+set statusline+=%{fugitive#statusline()}
 
 "RVM
 set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
@@ -260,11 +264,6 @@ if has("gui_running")
         "macmenu &File.New\ Tab key=<nop>
         "map <D-t> :CommandT<CR>
         " make Mac's Option key behave as the Meta key
-        set invmmta
-        try
-          set transparency=5
-        catch
-        endtry
     endif
 
     if has("gui_win32") || has("gui_win32s")
@@ -320,6 +319,9 @@ map <A-o> :copen<CR>
 map <A-q> :cclose<CR>
 map <A-j> :cnext<CR>
 map <A-k> :cprevious<CR>
+
+"key mapping for Gundo
+nnoremap <F4> :GundoToggle<CR>
 
 "snipmate setup
 try
@@ -386,6 +388,20 @@ function! s:HighlightLongLines(width)
         echomsg "Usage: HighlightLongLines [natural number]"
     endif
 endfunction
+
+" Strip trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 "key mapping for window navigation
 map <C-h> <C-w>h
