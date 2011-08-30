@@ -73,7 +73,10 @@ set fo=l
 set statusline=%f       "tail of the filename
 
 "Git
-set statusline+=%{fugitive#statusline()}
+"set statusline+=%{fugitive#statusline()}
+"http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "RVM
 set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
