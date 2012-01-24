@@ -508,3 +508,4 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+au BufNewFile,BufRead *.t2t                 setf txt2tags
