@@ -511,3 +511,6 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Instalación de txt2tags
 au BufNewFile,BufRead *.t2t set ft=txt2tags
+
+" http://blog.joshdzielak.com/blog/2011/12/26/get-hamlc-syntax-highlighting-in-vim/
+au BufRead,BufNewFile *.hamlc set ft=haml
