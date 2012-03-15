@@ -6,6 +6,7 @@ let g:CSApprox_verbose_level = 0
 "load pathogen managed plugins
 filetype off
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 filetype plugin indent on
 
 "Use Vim settings, rather then Vi settings (much better!).
