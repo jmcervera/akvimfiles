@@ -1,12 +1,9 @@
 "avoiding annoying CSApprox warning message
 let g:CSApprox_verbose_level = 0
 
-"necessary on some Linux distros for pathogen to properly load bundles
-
 "load pathogen managed plugins
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call pathogen#infect()
+syntax on   "turn on syntax highlighting
 filetype plugin indent on
 
 "Use Vim settings, rather then Vi settings (much better!).
@@ -258,13 +255,6 @@ set formatoptions-=o "dont continue comments when pushing o/O
 set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
-
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-"turn on syntax highlighting
-syntax on
 
 
 "some stuff to get the mouse going in term
