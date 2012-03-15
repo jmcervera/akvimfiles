@@ -2,48 +2,81 @@
 let g:CSApprox_verbose_level = 0
 
 "necessary on some Linux distros for pathogen to properly load bundles
-filetype on
-filetype off
 
 "load pathogen managed plugins
+filetype off
 call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
 
 "Use Vim settings, rather then Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
-
 " Security
-"set modelines=0
+set modelines=0
 
-" Tabs/spaces
-"set tabstop=4
+"indent settings
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
 " Basic options
-"set encoding=utf-8
+set encoding=utf-8
+set scrolloff=3
+set autoindent
+set showmode    "show current mode down the bottom
+set showcmd     "show incomplete cmds down the bottom
+set hidden      "hide buffers when not displayed
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildmode=list:longest   "make cmdline tab completion similar to bash
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+
+set visualbell t_vb=       "disable visual bell
+
 set cursorline
-"set ttyfast
-"set ruler
-"set relativenumber       "For the new vim 7.3
-"set undofile   "For the new vim 7.3
-"set undoreload=10000      "For the new vim 7.3
+set ttyfast
+set ruler
+"set number               "add line numbers
+set relativenumber        "For the new vim 7.3
+set undofile              "For the new vim 7.3
+set undoreload=10000      "For the new vim 7.3
+
+"Utilidades
+
+let mapleader = ","
+
+" Searching
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch   "find the next match as we type the search
+set showmatch
+set hlsearch    "hilight searches by default
+map <leader><space> :noh<cr>
+nmap <tab> %
+vmap <tab> %
+
+
+"long lines
+"set wrap
+"set textwidth=79
+"set formatoptions=qrn1
+"set colorcolumn=85
+
+set showbreak=...
+set wrap linebreak nolist
 
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+
 "store lots of :cmdline history
 set history=1000
 
-set showcmd     "show incomplete cmds down the bottom
-set showmode    "show current mode down the bottom
-
-set incsearch   "find the next match as we type the search
-set hlsearch    "hilight searches by default
-
-set number      "add line numbers
-set showbreak=...
-set wrap linebreak nolist
 
 "mapping for command key to map navigation thru display lines instead
 "of just numbered lines
@@ -61,8 +94,6 @@ nmap <D-0> g^
 "add some line space for easy reading
 set linespace=4
 
-"disable visual bell
-set visualbell t_vb=
 
 "try to make possible to navigate within lines of wrapped lines
 nmap <Down> gj
@@ -78,8 +109,10 @@ set statusline=%f       "tail of the filename
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
+
 "RVM
 set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
+
 
 set statusline+=%=      "left/right separator
 set statusline+=%c,     "cursor column
@@ -87,11 +120,14 @@ set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 set laststatus=2
 
+
 "turn off needless toolbar on gvim/mvim
 set guioptions-=T
 
+
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
 
 "return '[\s]' if trailing white space is detected
 "return '' otherwise
@@ -117,8 +153,10 @@ function! StatuslineCurrentHighlight()
     endif
 endfunction
 
+
 "recalculate the tab warning flag when idle and after writing
 autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+
 
 "return '[&et]' if &et is set wrong
 "return '[mixed-indenting]' if spaces and tabs are used to indent
@@ -139,8 +177,10 @@ function! StatuslineTabWarning()
     return b:statusline_tab_warning
 endfunction
 
+
 "recalculate the long line warning when idle and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
+
 
 "return a warning for "long lines" where "long" is either &textwidth or 80 (if
 "no &textwidth is set)
@@ -165,6 +205,7 @@ function! StatuslineLongLineWarning()
     return b:statusline_long_line_warning
 endfunction
 
+
 "return a list containing the lengths of the long lines in this buffer
 function! s:LongLines()
     let threshold = (&tw ? &tw : 80)
@@ -184,6 +225,7 @@ function! s:LongLines()
     return long_line_lens
 endfunction
 
+
 "find the median of the given array of numbers
 function! s:Median(nums)
     let nums = sort(a:nums)
@@ -197,21 +239,12 @@ function! s:Median(nums)
     endif
 endfunction
 
-"indent settings
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set autoindent
 
 "folding settings
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-set wildmode=list:longest   "make cmdline tab completion similar to bash
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 
 "display tabs and trailing spaces
 "set list
@@ -232,12 +265,11 @@ filetype indent on
 "turn on syntax highlighting
 syntax on
 
+
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
 
-"hide buffers when not displayed
-set hidden
 
 "Command-T configuration
 let g:CommandTMaxHeight=10
@@ -281,11 +313,14 @@ else
     "set railscasts colorscheme when running vim in gnome terminal
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
-        colorscheme railscasts
+        "colorscheme railscasts
+        colorscheme ir_dark
+        set guifont=Inconsolata\ Medium
     else
         colorscheme default
     endif
 endif
+
 
 " PeepOpen uses <Leader>p as well so you will need to redefine it so something
 " else in your ~/.vimrc file, such as:
@@ -446,28 +481,11 @@ let g:user_zen_settings = {
  \}
 
 
-"Utilidades
 
-
-" LeaderV
-let mapleader = ","
-
-" Searching
-nnoremap / /\v
-vnoremap / /\v
-set ignorecase
-set smartcase
-set incsearch
-set showmatch
-set hlsearch
-set gdefault
-map <leader><space> :noh<cr>
 runtime macros/matchit.vim
-nmap <tab> %
-vmap <tab> %
-
 
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
 
 " Use the damn hjkl keys
 nnoremap <up> <nop>
@@ -475,8 +493,10 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
 
 " Ack
 "map <leader>a :Ack
@@ -485,16 +505,20 @@ map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 "To get the quick blame for any highlighted lines
 vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
+
 "To edit the .vimrc file
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
 
 " Edit vim stuff.
 nmap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
 nmap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 
+
 " Sudo to write
 "cmap w!! w !sudo tee % >/dev/null
 cmap w!! w !sudo tee %
+
 
 " Strip trailing whitespace
 function! <SID>StripTrailingWhitespaces()
@@ -514,12 +538,14 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 " Instalación de txt2tags
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 
+"
 " http://blog.joshdzielak.com/blog/2011/12/26/get-hamlc-syntax-highlighting-in-vim/
 au BufRead,BufNewFile *.hamlc set ft=haml
 
 
 " when press { + Enter, the {} block will expand.
 imap {<CR> {}<ESC>i<CR><ESC>O
+
 
 " NERDTree settings
 nmap wm :NERDTree<cr>
