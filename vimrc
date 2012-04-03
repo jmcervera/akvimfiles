@@ -308,7 +308,10 @@ else
         colorscheme ir_dark
         set guifont=Inconsolata\ Medium
     else
-        colorscheme default
+        "colorscheme default
+        set term=gnome-256color
+        colorscheme ir_dark
+        set guifont=Inconsolata\ Medium
     endif
 endif
 
