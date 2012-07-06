@@ -14,9 +14,9 @@ set nocompatible
 set modelines=0
 
 "indent settings
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Basic options
@@ -543,3 +543,5 @@ imap {<CR> {}<ESC>i<CR><ESC>O
 nmap wm :NERDTree<cr>
 let NERDTreeIgnore=['\.swp$']
 
+au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+au BufNewFile,BufReadPost *.jade setl shiftwidth=2 expandtab
