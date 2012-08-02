@@ -35,8 +35,8 @@ set visualbell t_vb=       "disable visual bell
 set cursorline
 set ttyfast
 set ruler
-"set number               "add line numbers
-set relativenumber        "For the new vim 7.3
+set number               "add line numbers
+"set relativenumber        "For the new vim 7.3
 set undofile              "For the new vim 7.3
 set undoreload=10000      "For the new vim 7.3
 
